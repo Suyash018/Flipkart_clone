@@ -1,6 +1,8 @@
 import express from 'express';
 import Connection from './databse/db.js';
 import dotenv  from 'dotenv';
+import DefaultData from './default.js';
+
 
 
 const app = express();
@@ -16,3 +18,5 @@ const PASSWORD = process.env.DB_PASSWORD;
 Connection(USERNAME,PASSWORD);
 
 app.listen(PORT, ()=> console.log(`Server Success Port ${PORT}`));
+
+DefaultData();
