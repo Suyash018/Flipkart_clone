@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 
 import { Dialog, DialogContent, TextField, Box, Button, Typography, styled } from '@mui/material';
 
 import { authenticateSignup } from '../../service/api';
+import { DataContext } from '../../context/Dataprovider';
+
 
 const Component = styled(DialogContent)`
     height: 70vh;
@@ -65,7 +67,7 @@ const Error = styled(Typography)`
 const Image = styled(Box)`
     background: #2874f0 url(https://static-assets-web.flixcart.com/www/linchpin/fk-cp-zion/img/login_img_c4a81e.png) center 85% no-repeat;
     width: 27%;
-    height: 81.8%;
+    height: 80%;
     padding: 45px 35px;
     & > p, & > h5 {
         color: #FFFFFF;
@@ -107,6 +109,8 @@ const LoginDialog = ({ open, setOpen }) => {
     const [account,toggleAccount] = useState(accountInitialValues.login);
     const [signup,setSignup] = useState(signupInitialValues);
 
+    const {setAccount} = useContext(DataContext);
+
     const handleClose = () => {
         setOpen(false);
         toggleAccount(accountInitialValues.login);
@@ -121,7 +125,12 @@ const LoginDialog = ({ open, setOpen }) => {
     }
 
     const signupUser = async () => {
-      await  authenticateSignup(signup);
+      let response = await  authenticateSignup(signup);
+      if(!response) return;
+      handleClose();
+
+      setAccount(signup.firstname)
+
     }
 
 
