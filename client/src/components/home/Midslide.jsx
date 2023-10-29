@@ -9,7 +9,9 @@ const Component = styled(Box)`
 
 const LeftComponent = styled(Box)(({ theme}) => ({
     width: '83%',
-
+    [theme.breakpoints.down('md')]: {
+        width: '100%'
+    }
 }))
 
 const RightComponent = styled(Box)(({ theme}) => ({
@@ -19,7 +21,9 @@ const RightComponent = styled(Box)(({ theme}) => ({
     marginLeft: 10,
     padding: 5,
     textAlign: 'center',
-
+    [theme.breakpoints.down('md')]: {
+        display: 'none'
+    }
 }));
 
 const MidSlide = ({ products }) => {
